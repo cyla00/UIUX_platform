@@ -1,7 +1,7 @@
 import { Router } from '../deps.ts'
 
-export const registration = new Router()
-registration.post(`/api/${Deno.env.get('API_VERSION')}/registration`, async (ctx) => {
+export const registrationClient = new Router()
+registrationClient.post(`/api/${Deno.env.get('API_VERSION')}/registration-client`, async (ctx) => {
     if(!ctx.request.hasBody){
         ctx.throw(415)
     }

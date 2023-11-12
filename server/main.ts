@@ -2,7 +2,8 @@
 import { Application, Router, load } from "./deps.ts";
 
 // routes
-import { registration } from './routes/registration.ts'
+import { registrationPro } from './routes/registrationPro.ts'
+import { registrationClient } from './routes/registrationClient.ts'
 import { login } from './routes/login.ts'
 
 // middlewares
@@ -12,7 +13,8 @@ await load({export: true})
 const app = new Application();
 export const router = new Router();
 
-app.use(registration.routes(), registration.allowedMethods())
+app.use(registrationPro.routes(), registrationPro.allowedMethods())
+app.use(registrationClient.routes(), registrationClient.allowedMethods())
 app.use(login.routes(), login.allowedMethods())
 
 
