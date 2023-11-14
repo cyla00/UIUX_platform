@@ -21,15 +21,17 @@
 .page-enter-from,
 .page-leave-to {
   opacity: 0;
-  filter: blur(1rem);
+  filter: blur(.2rem);
 }
 
-/* .layout-enter-active,
+.layout-enter-active,
 .layout-leave-active {
-  transition: all 1s ease-in-out;
+  transition: all .5s ease-in-out;
 }
 .layout-enter-from,
 .layout-leave-to {
-  transform: translateY(-100);
-} */
+  transform: translateX(-300px);
+  opacity: 0;
+  filter: blur(.2rem);
+}
 </style>
