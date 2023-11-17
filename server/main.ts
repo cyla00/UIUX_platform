@@ -1,6 +1,7 @@
 // deps
 import { Application, load } from "./deps.ts"
 import { databaseConnection } from "./database/connection.ts"
+import { StripeConnection } from "./stripe/connection.ts"
 
 // routes
 import { registrationPro } from './routes/registrationPro.ts'
@@ -13,6 +14,7 @@ import {jwtMiddleware} from './auth/jwt.ts'
 await load({export: true})
 const app = new Application()
 export const db = await databaseConnection()
+export const stripe = StripeConnection()
 
 app.use(registrationPro.routes(), registrationPro.allowedMethods())
 app.use(registrationClient.routes(), registrationClient.allowedMethods())
