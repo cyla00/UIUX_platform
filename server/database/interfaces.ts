@@ -9,28 +9,17 @@ export interface UserInterface {
     username: string,
     firstName: string,
     lastName: string,
-    tags: Array<string>,
-    country: string, //optional
-    address: string, //optional
-    postCode: string, //optional
+    tags: Array<string>, // professipnal specialties
+    country: string, // optional
+    address: string, // optional
+    postCode: string, // optional
     paypalUrl: string, // TO DECIDE STRIPE OR PAYPAL
-    linkedinUrl: string, //optional
-    portfolioUrl: string, //optional
-    websiteUrl: string, //optional
+    linkedinUrl: string, // optional
+    portfolioUrl: string, // optional
+    websiteUrl: string, // optional
     reviews: Array<ProReviewInterface>,
     rating: Array<ClientReviewsInterface>,
     projects: Array<ClientProjectInterface>,
-}
-
-// the object the professional will create when placing pings on images
-interface ProReviewInterface {
-    id: string,
-    createdAt: Date,
-    ownerId: string,
-    clientId: string,
-    note: string,
-    severity: number,
-    recommendations: string,
 }
 
 // the object the client will create when creating a project to review
@@ -45,12 +34,24 @@ interface ClientProjectInterface {
     budget: string, // TO DECIDE
 }
 
+// the object the professional will create when placing pings on images
+interface ProReviewInterface {
+    id: string,
+    createdAt: Date,
+    ownerId: string,
+    clientId: string,
+    note: string,
+    severity: number,
+    recommendations: string,
+}
+
 // the questions asked while the client creates a project
 interface InfoFormInterface {
     id: string,
     createdAt: Date,
     ownerId: string,
     target: string,
+    screenType: number, // desktop tablet mobile
     tasks: Array<string>,
     questions: Array<string>,
     specialRequests: string,
