@@ -5,9 +5,9 @@
         <NuxtLink to="/" class="mr-2 action-effect">index</NuxtLink>
         <NuxtLink to="/login" class="mr-2 action-effect">login</NuxtLink>
         <NuxtLink to="/registration" class="mr-2 action-effect">registration</NuxtLink>
-        <NuxtLink to="/registration-pro" class="mr-2 action-effect">registration pro</NuxtLink>
+        <NuxtLink to="/pro/registration" class="mr-2 action-effect">registration pro</NuxtLink>
 
-        <NuxtLink to="/dashboard-pro" class="mr-2 action-effect">dashboard pro</NuxtLink>
+        <NuxtLink to="/pro/dashboard" class="mr-2 action-effect">dashboard pro</NuxtLink>
         <NuxtLink to="/dashboard" class="mr-2 action-effect">dashboard</NuxtLink>
     </header>
     

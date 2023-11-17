@@ -9,10 +9,11 @@ export interface UserInterface {
     username: string,
     firstName: string,
     lastName: string,
+    tags: Array<string>,
     country: string, //optional
     address: string, //optional
     postCode: string, //optional
-    paypalUrl: string,
+    paypalUrl: string, // TO DECIDE STRIPE OR PAYPAL
     linkedinUrl: string, //optional
     portfolioUrl: string, //optional
     websiteUrl: string, //optional
@@ -38,10 +39,10 @@ interface ClientProjectInterface {
     createdAt: Date,
     active: boolean,
     ownerId: string,
-    professionalsId: Array<string>,
+    professionalsId: Array<string>, // list of the IDs of the 3 professionals working on it
     infoForm: Array<InfoFormInterface>,
-    websitePaths: Array<string>,
-    imagePaths: Array<string>,
+    imagePaths: Array<string>, // website pages will become images and will be stored just like normal images
+    budget: string, // TO DECIDE
 }
 
 // the questions asked while the client creates a project
