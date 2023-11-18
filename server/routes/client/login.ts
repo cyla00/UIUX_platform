@@ -1,11 +1,11 @@
-import { UserInterface } from '../database/interfaces.ts';
-import { Router, Status, create, getNumericDate, base64, hex } from '../deps.ts'
-import { key } from "../auth/key.ts"
-import { db } from '../main.ts'
+import { UserInterface } from '../../database/interfaces.ts';
+import { Router, Status, create, getNumericDate, base64, hex } from '../../deps.ts'
+import { key } from "../../auth/key.ts"
+import { db } from '../../main.ts'
 
 
-export const login = new Router()
-login.post(`/api/${Deno.env.get('API_VERSION')}/login`, async (ctx) => {
+export const ClientLogin = new Router()
+ClientLogin.post(`/api/${Deno.env.get('API_VERSION')}/client/login`, async (ctx) => {
 
     const users = db.collection<UserInterface>(`${Deno.env.get('USER_COLLECTION')}`)
 

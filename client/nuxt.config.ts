@@ -14,5 +14,5 @@ export default defineNuxtConfig({
         apiBase: '/api',
         apiVersion: '/v.0.1'
       }
-    }
+    },
 })

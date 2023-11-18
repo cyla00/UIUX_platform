@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 definePageMeta({    
-    layout: 'pro',
+    layout: 'private-pro',
     pageTransition: true,
 })
 
@@ -10,7 +10,7 @@ const env = useRuntimeConfig().public
 
 <template>
     <main>
-        login
+        dashboard pro
     </main>
 </template>
 

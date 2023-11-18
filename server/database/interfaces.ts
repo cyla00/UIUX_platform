@@ -3,13 +3,13 @@ export interface UserInterface {
     id: string,
     createdAt: Date,
     active: boolean,
-    role: string,
+    role: string,   
     email: string,
     password: string,
     username: string,
     firstName: string,
     lastName: string,
-    tags: Array<string>, // professipnal specialties
+    tags: Array<string>, // professional specialties
     country: string, // optional
     address: string, // optional
     postCode: string, // optional
@@ -31,7 +31,7 @@ interface ClientProjectInterface {
     professionalsId: Array<string>, // list of the IDs of the 3 professionals working on it
     infoForm: Array<InfoFormInterface>,
     imagePaths: Array<string>, // website pages will become images and will be stored just like normal images
-    budget: string, // TO DECIDE
+    price: string,
 }
 
 // the object the professional will create when placing pings on images

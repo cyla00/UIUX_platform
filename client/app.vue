@@ -16,7 +16,7 @@
 
 .page-enter-active,
 .page-leave-active {
-  transition: all .2s;
+  transition: all .1s;
 }
 .page-enter-from,
 .page-leave-to {

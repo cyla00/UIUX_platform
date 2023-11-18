@@ -1,15 +1,17 @@
 <script setup lang="ts">
 
 definePageMeta({
-    layout: 'index-client',
+    layout: 'private-pro',
     pageTransition: true,
 })
+const route = useRoute()
+const env = useRuntimeConfig().public
 
 </script>
 
 <template>
     <main>
-        <ClientAuthentication/>
+        work page projectId: {{ route.params.projectId }}
     </main>
 </template>
 

@@ -1,15 +1,17 @@
 <script setup lang="ts">
 
 definePageMeta({
-    name: 'client registration page'
+    layout: 'private-client',
+    pageTransition: true,
 })
-
+const route = useRoute()
 const env = useRuntimeConfig().public
+
 </script>
 
 <template>
     <main>
-        reg usr
+        settings page
     </main>
 </template>
 

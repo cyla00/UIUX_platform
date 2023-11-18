@@ -1,16 +1,17 @@
 <script setup lang="ts">
 
 definePageMeta({
-  
+    layout: 'private-pro',
+    pageTransition: true,
 })
-
+const route = useRoute()
 const env = useRuntimeConfig().public
 
 </script>
 
 <template>
     <main>
-        login
+        settings page
     </main>
 </template>
 

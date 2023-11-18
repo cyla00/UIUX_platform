@@ -1,12 +1,11 @@
 <script setup lang="ts">
 
 definePageMeta({    
-    layout: 'client',
+    layout: 'private-client',
     pageTransition: true,
 })
 
 const env = useRuntimeConfig().public
-console.log(env.apiBase);
 
 </script>
 

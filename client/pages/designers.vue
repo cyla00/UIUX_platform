@@ -1,16 +1,15 @@
 <script setup lang="ts">
 
 definePageMeta({
-  
+    layout: 'index-pro',
+    pageTransition: true,
 })
-
-const env = useRuntimeConfig().public
 
 </script>
 
 <template>
     <main>
-        reg pro
+        <ProAuthentication/>
     </main>
 </template>
 
