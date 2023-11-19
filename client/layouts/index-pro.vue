@@ -1,8 +1,8 @@
 <template>
     <div>
       <header class="font-bold">
-        <NuxtLink to="/" class="mr-2 action-effect">be client</NuxtLink>
-        <NuxtLink to="/pro/dashboard" class="mr-2 action-effect">dashboard pro</NuxtLink>
+        <NuxtLink to="/" class="mr-2 action-effect">become client</NuxtLink>
+        <NuxtLink to="/pro/dashboard" class="mr-2 action-effect">dashboard</NuxtLink>
       </header>
       
       <slot />

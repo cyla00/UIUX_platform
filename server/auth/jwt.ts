@@ -1,7 +1,7 @@
 import { verify, Status } from '../deps.ts'
 import { key } from "./key.ts"
 
-export const jwtMiddleware = async (ctx:any, next:any) => {
+export const jwtMiddleware = async (ctx, next) => {
     const auth = ctx.request.headers.get("Authorization")
     const cleanedToken = auth.split(' ')[1]
     try{

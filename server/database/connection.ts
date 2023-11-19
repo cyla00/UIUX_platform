@@ -1,6 +1,5 @@
-import { MongoClient, load } from "../deps.ts"
+import { MongoClient } from "../deps.ts"
 
-await load({export: true})
 export const databaseConnection = async () => {
     const client = new MongoClient()
     const url = `mongodb://${Deno.env.get("DB_USER")}:${Deno.env.get("DB_PASS")}@${Deno.env.get("DB_HOST")}:${Deno.env.get("DB_PORT")}/?authSource=${Deno.env.get("DB_NAME")}`

@@ -2,8 +2,8 @@ import { Router } from '../../deps.ts'
 import { UserInterface } from '../../database/interfaces.ts'
 import { db } from '../../main.ts'
 
-export const ProRegistration = new Router()
-ProRegistration.post(`/api/${Deno.env.get('API_VERSION')}/pro/registration`, async (ctx) => {
+export const proRegistration = new Router()
+proRegistration.post(`/api/${Deno.env.get('API_VERSION')}/pro/registration`, async (ctx) => {
     const users = db.collection<UserInterface>(`${Deno.env.get('USER_COLLECTION')}`)
 
     const body  = await ctx.request.body().value

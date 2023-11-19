@@ -3,13 +3,14 @@ import { Application, load } from "./deps.ts"
 import { databaseConnection } from "./database/connection.ts"
 import { StripeConnection } from "./stripe/connection.ts"
 
+// universal routes
+import { login } from "./routes/universal/login.ts"
+
 // client routes
-import { ClientRegistration } from './routes/client/registration.ts'
-import { ClientLogin } from './routes/client/login.ts'
+import { clientRegistration } from './routes/client/registration.ts'
 
 // pro routes
-import { ProRegistration } from './routes/pro/registration.ts'
-import { ProLogin } from './routes/pro/login.ts'
+import { proRegistration } from './routes/pro/registration.ts'
 
 // middlewares
 import {jwtMiddleware} from './auth/jwt.ts'
@@ -19,13 +20,15 @@ const app = new Application()
 export const db = await databaseConnection()
 export const stripe = await StripeConnection()
 
+// universal routes
+app.use(login.routes(), login.allowedMethods())
+
 // client routes
-app.use(ClientRegistration.routes(), ClientRegistration.allowedMethods())
-app.use(ClientLogin.routes(), ClientLogin.allowedMethods())
+app.use(clientRegistration.routes(), clientRegistration.allowedMethods())
 
 // pro routes
-app.use(ProRegistration.routes(), ProRegistration.allowedMethods())
-app.use(ProLogin.routes(), ProLogin.allowedMethods())
+app.use(proRegistration.routes(), proRegistration.allowedMethods())
+
 
 
 // protected routes

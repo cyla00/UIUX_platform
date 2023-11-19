@@ -10,8 +10,8 @@ const env = useRuntimeConfig().public
 </script>
 
 <template>
-    <main>
-        login
+    <main class="text-center font-bold">
+        <h1>client</h1>
     </main>
 </template>
 

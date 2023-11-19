@@ -9,8 +9,8 @@ const env = useRuntimeConfig().public
 </script>
 
 <template>
-    <main>
-        dashboard pro
+    <main class="text-center font-bold">
+        <h1>pro</h1>
     </main>
 </template>
 

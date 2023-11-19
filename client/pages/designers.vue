@@ -8,7 +8,8 @@ definePageMeta({
 </script>
 
 <template>
-    <main>
+    <main class="text-center font-bold">
+        <h1>pro</h1>
         <ProAuthentication/>
     </main>
 </template>

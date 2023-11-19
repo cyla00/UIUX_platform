@@ -6,13 +6,14 @@ export interface UserInterface {
     role: string,   
     email: string,
     password: string,
+    salt: string,
     username: string,
     firstName: string,
     lastName: string,
     tags: Array<string>, // professional specialties
-    country: string, // optional
-    address: string, // optional
-    postCode: string, // optional
+    // country: string,
+    // address: string,
+    // postCode: string,
     paypalUrl: string, // TO DECIDE STRIPE OR PAYPAL
     linkedinUrl: string, // optional
     portfolioUrl: string, // optional
@@ -32,6 +33,7 @@ interface ClientProjectInterface {
     infoForm: Array<InfoFormInterface>,
     imagePaths: Array<string>, // website pages will become images and will be stored just like normal images
     price: string,
+    status: number, // 0 not picked up yet, 1 on going, 2 completed 
 }
 
 // the object the professional will create when placing pings on images
