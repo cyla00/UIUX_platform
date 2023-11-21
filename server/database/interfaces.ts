@@ -1,42 +1,48 @@
+// table USERS
 export interface UserInterface {
     stripeId: string,
     id: string,
-    createdAt: Date,
+    hash: string,
+    createdAt: string,
+    lastLogin: string,
     active: boolean,
-    role: string,   
-    email: string,
+    role: string,
+    jobTitle: string, // can be null
+    seniority: string, // can be null
+    industryExperience: Array<string>, // can be null jsonb
+    designSpeciality: Array<string>, // can be null jsonb
+    emailId: string,
     password: string,
-    salt: string,
-    username: string,
-    firstName: string,
-    lastName: string,
-    tags: Array<string>, // professional specialties
-    // country: string,
-    // address: string,
-    // postCode: string,
-    paypalUrl: string, // TO DECIDE STRIPE OR PAYPAL
-    linkedinUrl: string, // optional
-    portfolioUrl: string, // optional
-    websiteUrl: string, // optional
-    reviews: Array<ProReviewInterface>,
-    rating: Array<ClientReviewsInterface>,
-    projects: Array<ClientProjectInterface>,
+    username: string, // can be null
+    firstName: string, // can be null
+    lastName: string, // can be null
+    country: string, // can be null
+    paypalUrl: string, // can be null
+    linkedinUrl: string, // can be null
+    portfolioId: string, // can be null
+    reviewsId: Array<string>, // jsonb
+    ratingsId: Array<string>, // jsonb
+    projectsId: Array<string>, // jsonb
 }
 
-// the object the client will create when creating a project to review
+// TABLE projects
 interface ClientProjectInterface {
     id: string,
     createdAt: Date,
     active: boolean,
     ownerId: string,
     professionalsId: Array<string>, // list of the IDs of the 3 professionals working on it
-    infoForm: Array<InfoFormInterface>,
+    target: string,
+    screenType: string, // desktop tablet mobile
+    tasks: Array<string>,
+    questions: Array<string>,
+    specialRequests: string,
     imagePaths: Array<string>, // website pages will become images and will be stored just like normal images
     price: string,
     status: number, // 0 not picked up yet, 1 on going, 2 completed 
 }
 
-// the object the professional will create when placing pings on images
+// table REVIEWS
 interface ProReviewInterface {
     id: string,
     createdAt: Date,
@@ -47,21 +53,14 @@ interface ProReviewInterface {
     recommendations: string,
 }
 
-// the questions asked while the client creates a project
-interface InfoFormInterface {
-    id: string,
-    createdAt: Date,
-    ownerId: string,
-    target: string,
-    screenType: number, // desktop tablet mobile
-    tasks: Array<string>,
-    questions: Array<string>,
-    specialRequests: string,
-}
-
 // the feedback the client will leave to a professional
 interface ClientReviewsInterface {
     id: string,
     title: string,
     rating: number,
+}
+
+interface PortfolioVerification {
+    url: string,
+    verified: boolean,
 }
