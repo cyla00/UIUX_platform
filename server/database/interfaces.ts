@@ -1,66 +1,72 @@
-// table USERS
 export interface UserInterface {
-    stripeId: string,
     id: string,
+    stripe_id: string,
     hash: string,
-    createdAt: string,
-    lastLogin: string,
+    created_at: string,
+    last_login: string,
     active: boolean,
     role: string,
-    jobTitle: string, // can be null
-    seniority: string, // can be null
-    industryExperience: Array<string>, // can be null jsonb
-    designSpeciality: Array<string>, // can be null jsonb
-    emailId: string,
+    job_title: string,
+    seniority: string,
+    industry_experience: Array<string>,
+    design_speciality: Array<string>,
+    email: EmailInterface,
     password: string,
-    username: string, // can be null
-    firstName: string, // can be null
-    lastName: string, // can be null
-    country: string, // can be null
-    paypalUrl: string, // can be null
-    linkedinUrl: string, // can be null
-    portfolioId: string, // can be null
-    reviewsId: Array<string>, // jsonb
-    ratingsId: Array<string>, // jsonb
-    projectsId: Array<string>, // jsonb
+    username: string,
+    first_name: string,
+    last_name: string,
+    country: string,
+    paypal_url: string,
+    linkedin_url: string,
+    portfolio: string,
+    designer_reviews_id: Array<string>,
+    designer_avg_rating: Float32Array,
+    client_projects: Array<string>,
 }
 
-// TABLE projects
-interface ClientProjectInterface {
+export interface ClientProjectsInterface{
     id: string,
-    createdAt: Date,
-    active: boolean,
     ownerId: string,
-    professionalsId: Array<string>, // list of the IDs of the 3 professionals working on it
+    createdAt: string,
+    active: string,
+    designers: Array<string>,
     target: string,
-    screenType: string, // desktop tablet mobile
+    screenType: ScreenTypesInterface,
     tasks: Array<string>,
     questions: Array<string>,
     specialRequests: string,
-    imagePaths: Array<string>, // website pages will become images and will be stored just like normal images
-    price: string,
-    status: number, // 0 not picked up yet, 1 on going, 2 completed 
+    imagePaths: Array<ImagePathInterface>,
+    price: Float32Array,
+    status: number, 
 }
-
-// table REVIEWS
-interface ProReviewInterface {
+export interface DesignerReviewsInterface{
     id: string,
-    createdAt: Date,
     ownerId: string,
-    clientId: string,
+    projectId: string,
+    createdAt: string,
     note: string,
     severity: number,
     recommendations: string,
 }
-
-// the feedback the client will leave to a professional
-interface ClientReviewsInterface {
+export interface ClientRatingsInterface{
     id: string,
-    title: string,
-    rating: number,
+    ownerId: string,
+    designerId: string,
+    rating: string,
 }
 
-interface PortfolioVerification {
-    url: string,
-    verified: boolean,
+// private interfaces
+interface EmailInterface {
+    value: string,
+    verified: boolean
+}
+
+interface ScreenTypesInterface{
+    type: string,
+    size: string
+}
+
+interface ImagePathInterface{
+    path: string,
+    resolution: string
 }

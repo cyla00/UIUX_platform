@@ -11,12 +11,11 @@ export const databaseConnection = async () => {
             port: 5432,
         })
         await client.connect()
-        console.log('db connected')
         await client.queryArray(`CREATE TABLE IF NOT EXISTS users (
             id VARCHAR(100) PRIMARY KEY NOT NULL,
             stripe_id VARCHAR(100),
             hash VARCHAR(100) NOT NULL,
-            created_at DATE NOT NULL DEFAULT CURRENT_DATE,
+            created_at TIMESTAMP DEFAULT NOW(),
             last_login DATE,
             active BOOLEAN NOT NULL,
             role VARCHAR(50) NOT NULL,
@@ -32,7 +31,7 @@ export const databaseConnection = async () => {
             country VARCHAR(5),
             paypal_url VARCHAR(200),
             linkedin_url VARCHAR(200),
-            portfolio JSONB,
+            portfolio VARCHAR(200),
             designer_reviews_id TEXT [],
             designer_avg_rating FLOAT,
             client_projects TEXT []
@@ -41,9 +40,9 @@ export const databaseConnection = async () => {
         await client.queryArray(`CREATE TABLE IF NOT EXISTS clientProjects (
             id VARCHAR(100) PRIMARY KEY NOT NULL,
             ownerId VARCHAR(100) NOT NULL,
-            createdAt DATE NOT NULL DEFAULT CURRENT_DATE,
+            createdAt TIMESTAMP DEFAULT NOW(),
             active BOOLEAN NOT NULL,
-            designers JSONB,
+            designers TEXT [],
             target VARCHAR(500) NOT NULL,
             screenType VARCHAR(100) NOT NULL,
             tasks TEXT [] NOT NULL,
@@ -56,6 +55,7 @@ export const databaseConnection = async () => {
 
         await client.queryArray(`CREATE TABLE IF NOT EXISTS designerReviews (
             id VARCHAR(100) PRIMARY KEY NOT NULL,
+            created_at TIMESTAMP DEFAULT NOW(),
             ownerId VARCHAR(100) NOT NULL,
             projectId VARCHAR(100) NOT NULL,
             createdAt DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -66,14 +66,13 @@ export const databaseConnection = async () => {
 
         await client.queryArray(`CREATE TABLE IF NOT EXISTS clientRatings (
             id VARCHAR(100) PRIMARY KEY NOT NULL,
+            created_at TIMESTAMP DEFAULT NOW(),
             ownerId VARCHAR(100) NOT NULL,
             designerId VARCHAR(100) NOT NULL,
             rating INTEGER NOT NULL
         );`)
         return client
     }catch(e){
-        console.log(e);
-        
         throw new Error(`${e}`)
     }
 }

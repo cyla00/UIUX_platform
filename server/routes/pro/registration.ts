@@ -1,5 +1,4 @@
 import { Router, checkPassword } from '../../deps.ts'
-import { UserInterface } from '../../database/interfaces.ts'
 import { db } from '../../main.ts'
 import { verificationEmail } from '../../mailer/verificationEmail.ts'
 import { checkEmailFormat } from '../../mailer/emailFormat.ts'
@@ -8,8 +7,6 @@ import { Status } from 'https://deno.land/std@0.200.0/http/http_status.ts'
 
 export const proRegistration = new Router()
 proRegistration.post(`/api/${Deno.env.get('API_VERSION')}/designer/registration`, async (ctx) => {
-
-    const users = db.collection<UserInterface>(`${Deno.env.get('USER_COLLECTION')}`)
 
     const body  = await ctx.request.body().value
     const new_hash = crypto.randomUUID()
@@ -45,52 +42,28 @@ proRegistration.post(`/api/${Deno.env.get('API_VERSION')}/designer/registration`
         }
     }
 
-    const check_existence = await users.findOne({email: {value: body.email, verified: Boolean()}})
-    if(check_existence){
-        ctx.response.status = Status.BadRequest
-        return ctx.response.body = {
-            account: {
-                exists: true
-            }  
+    await db.queryArray(`SELECT EXISTS (SELECT * FROM users WHERE email->>'value'=$1);`, [body.email]).then(async res => {
+        if(res.rows[0][0]){
+            ctx.response.status = Status.BadRequest
+            return ctx.response.body = {
+                account: {
+                    exists: true,
+                }
+            }
         }
-    }
 
-    try{
-        await users.insertOne({
-            stripeId: '',
-            id: new_id,
-            hash: new_hash,
-            createdAt: new Date().toString(),
-            lastLogin: '',
-            active: false,
-            role: String(Deno.env.get('DESIGNER_ROLE')),
-            jobTitle: '',
-            seniority: '',
-            industryExperience: [],
-            designSpeciality: [],
-            email: {
-                value: body.email,
-                verified: false
-            },
-            password: hashed_pass,
-            username: '',
-            firstName: '',
-            lastName: '',
-            country: '',
-            paypalUrl: '',
-            linkedinUrl: '',
-            portfolio: {
-                url: '',
-                verified: false,
-            },
-            reviews: [],
-            ratings: [],
-            projects: [],
-        }).then(async _ => {
-            await verificationEmail(String(Deno.env.get('EMAIL_AUTH_USER')), body.email, new_hash, String(Deno.env.get('PLATFORM_NAME')), String(Deno.env.get('PLATFORM_HOST'))).then(_ => {
+        await db.queryArray(`INSERT INTO users(id, hash, active, role, email, password) VALUES ($1, $2, $3, $4, $5, $6)`, 
+        [new_id, new_hash, false, 'designer', {value: body.email, verified: false}, hashed_pass]).then(async _ => {
+            await verificationEmail(
+                String(Deno.env.get('EMAIL_AUTH_USER')),
+                body.email,
+                new_hash,
+                String(Deno.env.get('PLATFORM_NAME')),
+                String(Deno.env.get('PLATFORM_HOST')),
+            ).then(_ => {
                 ctx.response.status = Status.OK
                 return ctx.response.body = {
-                    SuccMsg: 'Account successfully created'
+                    SuccMsg: 'Successfully registered'
                 }
             }).catch(_ => {
                 ctx.response.status = Status.BadGateway
@@ -104,10 +77,10 @@ proRegistration.post(`/api/${Deno.env.get('API_VERSION')}/designer/registration`
                 ErrMsg: 'An error occurred, please retry later'
             }
         })
-    }catch(_){
+    }).catch(_ => {
         ctx.response.status = Status.BadGateway
         return ctx.response.body = {
             ErrMsg: 'An error occurred, please retry later'
         }
-    }
+    })
 })
