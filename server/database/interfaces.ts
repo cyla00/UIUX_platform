@@ -26,32 +26,33 @@ export interface UserInterface {
 
 export interface ClientProjectsInterface{
     id: string,
-    ownerId: string,
-    createdAt: string,
+    owner_id: string,
+    created_at: string,
+    order_reference: string, // ex #123455
     active: string,
     designers: Array<string>,
     target: string,
-    screenType: ScreenTypesInterface,
+    screen_type: ScreenTypesInterface,
     tasks: Array<string>,
     questions: Array<string>,
-    specialRequests: string,
-    imagePaths: Array<ImagePathInterface>,
+    special_requests: string,
+    image_paths: Array<ImagePathInterface>,
     price: Float32Array,
     status: number, 
 }
 export interface DesignerReviewsInterface{
     id: string,
-    ownerId: string,
-    projectId: string,
-    createdAt: string,
+    owner_id: string,
+    project_id: string,
+    created_at: string,
     note: string,
     severity: number,
     recommendations: string,
 }
 export interface ClientRatingsInterface{
     id: string,
-    ownerId: string,
-    designerId: string,
+    owner_id: string,
+    designer_id: string,
     rating: string,
 }
 
