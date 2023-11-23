@@ -8,7 +8,6 @@ export const jwtMiddleware = async (ctx, next) => {
         await verify(cleanedToken, key)
         next()
     }catch(_e){
-        console.log(_e)
         ctx.response.status = Status.Unauthorized
     }
 }
