@@ -5,21 +5,21 @@ definePageMeta({
     pageTransition: true,
 })
 
-const errMsg = ref<Array<string>>([])
-const succMsg = ref<Array<string>>([])
+
+const message = ref<Array<alertMessage>>([])
 
 const triggersucc = () => {
-    succMsg.value.push('test success message awdawd awd awd awd ' + succMsg.value.length.toString()) 
+    message.value.push({type: 'success', value: 'success message here and go'}) 
 }
 
 const triggererr = () => {
-    errMsg.value.push('test error message' + errMsg.value.length.toString())
+    message.value.push({type: 'error', value: 'error message here!'})
 }
 </script>
 
 <template>
     <main class="text-center font-bold">
-        <Popup :ErrMsg="errMsg" :SuccMsg="succMsg"/>
+        <Popup :Message="message"/>
         <h1>pro</h1>
         <ProAuthentication/>
         <button @click="triggersucc" class="m-5">trigger succ</button>

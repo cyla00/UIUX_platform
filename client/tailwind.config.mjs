@@ -17,6 +17,8 @@ export default {
         "c-neutral-100": "#EAECEF",
         "c-neutral-50": "#F5F6F7",
         "c-neutral-0": "#FFFFFF",
+        "c-error": "#f44336",
+        "C-success": "#66bb6a",
       },
     },
   },

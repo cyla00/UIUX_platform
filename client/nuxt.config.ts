@@ -27,7 +27,7 @@ export default defineNuxtConfig({
           },
           {
               rel: 'stylesheet',
-              href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap'
+              href: 'https://fonts.googleapis.com/css2?family=Archivo:wght@200;300;400;500;600;700&display=swap'
           },
         ],
         title: `SOME TITLE`,
@@ -36,7 +36,7 @@ export default defineNuxtConfig({
         ],
       },
       pageTransition: {name: 'page', mode: 'out-in'},
-      layoutTransition: { name: 'layout', mode: 'out-in' }
+      layoutTransition: { name: 'layout', mode: 'out-in' },
     },
     modules: [
       '@nuxtjs/tailwindcss'
@@ -47,4 +47,5 @@ export default defineNuxtConfig({
         apiVersion: '/v.0.1'
       }
     },
+    
 })

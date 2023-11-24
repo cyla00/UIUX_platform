@@ -5,6 +5,14 @@
 </template>
 
 <style>
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+	  font-family: Archivo;
+}
+
 .action-effect:hover {
     opacity: 50%;
     transition: .2s;
