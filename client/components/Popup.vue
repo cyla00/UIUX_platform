@@ -8,7 +8,7 @@ watch(() => props, () => {
     if(props.Message.length > 0){
         setTimeout(() => {
             props.Message.splice(0, 1)
-        }, 4000)
+        }, 2000)
     }
 }, { deep: true })
 
@@ -20,9 +20,9 @@ const clickDelete = () => {
 <template>
     <Teleport to="body">
 
-        <div class="absolute top-5 right-5 max-md:left-5 cursor-pointer"> 
+        <div class="absolute top-5 left-1/2 transform -translate-x-1/2 max-md:w-full cursor-pointer z-50"> 
             <Transition name="slide">
-                <div class="z-50" v-if="Message.length > 0">
+                <div v-if="Message.length > 0">
                     <div v-for="(item, index) in Message.slice().reverse()" :key="item.type" class="flex justify-end">
                         <div class="bg-opacity-50 border rounded-md wrapper py-2 px-5 text-c-neutral-1000 my-1 flex-col font-semibold max-md:w-full action-effect" @click="clickDelete" :class="{'error': item.type === 'error', 'success': item.type === 'success'}">
                             <p v-if="item.type === 'error'" class="text-c-error-dark"><i class='bx bx-error-circle text-c-error-dark'></i> Error</p> 

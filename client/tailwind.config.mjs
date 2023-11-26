@@ -21,6 +21,7 @@ export default {
         "C-success-light": "#CCF8E4",
         "c-error-dark": "#ff4733",
         "c-success-dark": "#4be7a1",
+        "c-dark-blue": "#0057FF",
       },
     },
   },

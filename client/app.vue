@@ -11,6 +11,7 @@ html {
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
 	  font-family: Archivo;
+    color: #343A40;
 }
 
 i{
