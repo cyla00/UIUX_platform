@@ -11,17 +11,23 @@ watch(() => props, () => {
         }, 4000)
     }
 }, { deep: true })
+
+const clickDelete = () => {
+    props.Message.splice(0, 1)
+}
 </script>
 
 <template>
     <Teleport to="body">
 
-        <div class="absolute bottom-5 right-5"> 
+        <div class="absolute top-5 right-5 max-md:left-5 cursor-pointer"> 
             <Transition name="slide">
                 <div class="z-50" v-if="Message.length > 0">
                     <div v-for="(item, index) in Message.slice().reverse()" :key="item.type" class="flex justify-end">
-                        <div class="rounded-md wrapper py-2 px-5 text-c-neutral-0 my-1 flex-col font-semibold" :class="{'error': item.type === 'error', 'success': item.type === 'success'}">
-                            <p><i class='align-middle text-xl max-md:text-sm'></i> {{item.value}}</p>
+                        <div class="bg-opacity-50 border rounded-md wrapper py-2 px-5 text-c-neutral-1000 my-1 flex-col font-semibold max-md:w-full action-effect" @click="clickDelete" :class="{'error': item.type === 'error', 'success': item.type === 'success'}">
+                            <p v-if="item.type === 'error'" class="text-c-error-dark"><i class='bx bx-error-circle text-c-error-dark'></i> Error</p> 
+                            <p v-if="item.type === 'success'" class="text-c-success-dark"><i class='bx bx-check-circle text-c-success-dark'></i> Success</p>
+                            <p class="font-normal">{{item.value}}</p>
                         </div>
                     </div>
                 </div>
@@ -44,12 +50,19 @@ watch(() => props, () => {
 }
 .wrapper{
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .error{
-    background-color: #f44336;
+    background-color: #FFE2DF;
+    border-color: #ff4733;
 }
 
 .success{
-    background-color: #66bb6a;
+    background-color: #CCF8E4;
+    border-color: #4be7a1;
 }
 </style>

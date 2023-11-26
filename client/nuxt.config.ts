@@ -39,6 +39,7 @@ export default defineNuxtConfig({
       layoutTransition: { name: 'layout', mode: 'out-in' },
     },
     modules: [
+      '@pinia/nuxt',
       '@nuxtjs/tailwindcss'
     ],
     runtimeConfig: {

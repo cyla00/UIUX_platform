@@ -13,6 +13,10 @@ html {
 	  font-family: Archivo;
 }
 
+i{
+  vertical-align: middle;
+}
+
 .action-effect:hover {
     opacity: 50%;
     transition: .2s;
