@@ -5,12 +5,17 @@ export const authForm = defineStore('authForm', () => {
     const signUpForm = ref<boolean>(false)
     const logInForm = ref<boolean>(false)
     const resetPasswordForm = ref<boolean>(false)
-  
+
+    const email = ref<string>('')
+    const password_signup = ref<string>('')
+    const password_login = ref<string>('')
+
     function openAuthSign() {
         isOpen.value = true
         logInForm.value = false
         signUpForm.value = true
         resetPasswordForm.value = false
+        password_login.value = ''
     }
 
     function openAuthLog() {
@@ -18,7 +23,9 @@ export const authForm = defineStore('authForm', () => {
         signUpForm.value = false
         logInForm.value = true
         resetPasswordForm.value = false
+        password_signup.value = ''
     }
+
     function openResetPassword() {
         isOpen.value = true
         signUpForm.value = false
@@ -31,17 +38,11 @@ export const authForm = defineStore('authForm', () => {
         signUpForm.value = false
         logInForm.value = false
         resetPasswordForm.value = false
+
+        email.value = ''
+        password_signup.value = ''
+        password_login.value = ''
     }
 
-    return { openAuthSign, openAuthLog, closeAuth, isOpen, signUpForm, logInForm, openResetPassword, resetPasswordForm }
-})
-
-export const userLogger = defineStore('userLogger', () => {
-    const isLogged = ref<boolean>(false)
-  
-    function checkUserLog() {
-        isLogged.value = true
-    }
-
-    return { checkUserLog, isLogged }
+    return { openAuthSign, openAuthLog, closeAuth, isOpen, signUpForm, logInForm, openResetPassword, resetPasswordForm, email, password_signup, password_login }
 })

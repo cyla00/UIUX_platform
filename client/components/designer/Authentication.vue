@@ -3,11 +3,9 @@ import { authForm } from '../../store/states'
 import { storeToRefs } from 'pinia'
 
 const message = ref<Array<alertMessage>>([])
-const email = ref<string>()
-const password = ref<string>()
 
 const openForm = authForm()
-let { isOpen, signUpForm, logInForm, resetPasswordForm } = storeToRefs(openForm)
+let { isOpen, signUpForm, logInForm, resetPasswordForm, email, password_signup, password_login } = storeToRefs(openForm)
 const { closeAuth, openAuthLog, openAuthSign, openResetPassword } = openForm
 
 const login = () => {
@@ -21,6 +19,7 @@ const signup = () => {
 const resetPassword = () => {
     message.value = [{type: 'error', value: 'error'}]
 }
+
 </script>
 
 <template>
@@ -38,7 +37,7 @@ const resetPassword = () => {
                     <p class="w-full text-sm">You will use this to login</p>
                 </div>
                 <div class="mb-10">
-                    <input class="py-2 w-full px-5 mb-3 border border-c-neutral-500 rounded-md outline-none focus:border-c-blue duration-200 text-c-neutral-800" type="password" v-model="password" placeholder="Password">
+                    <input class="py-2 w-full px-5 mb-3 border border-c-neutral-500 rounded-md outline-none focus:border-c-blue duration-200 text-c-neutral-800" type="password" v-model="password_signup" placeholder="Password">
                     <p class="w-full text-sm">At least 8 characters, one uppercase, one lowercase and one special symbol (like !@#$%^)</p>
                 </div>
                 <div class="text-center">
@@ -61,7 +60,7 @@ const resetPassword = () => {
                     <input class="py-2 w-full px-5 mb-3 border border-c-neutral-500 rounded-md outline-none focus:border-c-blue duration-200 text-c-neutral-800" type="email" v-model="email" placeholder="Email">
                 </div>
                 <div class="mb-10">
-                    <input class="py-2 w-full px-5 mb-3 border border-c-neutral-500 rounded-md outline-none focus:border-c-blue duration-200 text-c-neutral-800" type="password" v-model="password" placeholder="Password">
+                    <input class="py-2 w-full px-5 mb-3 border border-c-neutral-500 rounded-md outline-none focus:border-c-blue duration-200 text-c-neutral-800" type="password" v-model="password_login" placeholder="Password">
                 </div>
                 <div class="text-center">
                     <button @click="login" class="text-c-neutral-0 py-2 px-5 bg-c-orange w-full action-effect font-semibold rounded-md mb-3">Log in</button>
