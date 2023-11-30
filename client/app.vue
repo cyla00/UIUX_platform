@@ -39,12 +39,16 @@ i{
 
 .layout-enter-active,
 .layout-leave-active {
-  transition: all .2s ease-in-out;
+  transition: all .1s ease;
 }
 .layout-enter-from,
 .layout-leave-to {
   transform: translateX(-300px);
   opacity: 0;
   filter: blur(.1rem);
+}
+
+.shadow{
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 </style>

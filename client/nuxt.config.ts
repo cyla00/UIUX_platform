@@ -45,7 +45,8 @@ export default defineNuxtConfig({
     runtimeConfig: {
       public: {
         apiBase: '/api',
-        apiVersion: '/v.0.1'
+        apiVersion: '/v.0.1',
+        platformName: 'PLATFORM NAME'
       }
     },
     

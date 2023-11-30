@@ -4,6 +4,7 @@ export default {
     extend: {
       colors: {
         "c-blue": "#2A8C9F",
+        "c-blue-light": "#E7F6F9",
         "c-orange": "#F25C54",
         "c-neutral-1000": "#191C1F",
         "c-neutral-900": "#212529",
