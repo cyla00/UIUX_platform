@@ -1,5 +1,5 @@
 // deps
-import { Application, load } from "./deps.ts"
+import { Application, load, oakCors } from "./deps.ts"
 import { databaseConnection } from "./database/connection.ts"
 import { stripeConnection } from "./stripe/connection.ts"
 import { mailerConnection } from './mailer/mailerConnect.ts'
@@ -22,6 +22,9 @@ import {jwtMiddleware} from './auth/jwt.ts'
 
 await load({export: true})
 const app = new Application()
+
+app.use(oakCors())
+
 export const db = await databaseConnection()
 export const stripe = await stripeConnection()
 export const mailer = mailerConnection()

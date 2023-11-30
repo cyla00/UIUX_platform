@@ -14,6 +14,7 @@ login.post(`/api/${Deno.env.get('API_VERSION')}/login`, async (ctx) => {
     const hexEncoded = decodeBase64(String(auth))
     const textDecoder = new TextDecoder()
     const [email, password] = textDecoder.decode(hexEncoded).split(':')
+
     await db.queryObject<UserInterface>(`SELECT * FROM users WHERE email->>'value'=$1;`, [email]).then(async (res) => {
 
         if(res.rows.length <= 0){
@@ -25,10 +26,8 @@ login.post(`/api/${Deno.env.get('API_VERSION')}/login`, async (ctx) => {
                 }
             }
             ctx.response.status = Status.Unauthorized
-                return ctx.response.body = {
-                account: {
-                    exists: false
-                }
+                return ctx.response.body = {   
+                    ErrMsg: 'not exists',
             }
         }
         if(!res.rows[0].email.verified){

@@ -38,7 +38,7 @@ export interface ClientProjectsInterface{
     special_requests: string,
     image_paths: Array<ImagePathInterface>,
     price: Float32Array,
-    status: number, 
+    status: boolean, // TO MODIFY IN SQL
 }
 export interface DesignerReviewsInterface{
     id: string,
