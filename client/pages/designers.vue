@@ -39,8 +39,8 @@ const scrollTop = () => {
 
             <div class="flex w-4/5 m-auto">
 
-                <div class="flex justify-center text-start">
-                    <div class="m-auto w-96">
+                <div class="flex text-start">
+                    <div class="w-96">
                         <h2 class="text-6xl">How it works</h2>
                         <p class="text-2xl">maybe some content here for seo and remove blank space</p>
                     </div>
