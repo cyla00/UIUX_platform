@@ -11,11 +11,13 @@ const { checkLog } = logStatus
 
 const dashRouter = ref<string>()
 
-checkLog()
-
-if(isClient.value) dashRouter.value = '/client/dashboard'
-if(isDesigner.value) dashRouter.value = '/pro/dashboard'
-if(isModerator.value) dashRouter.value = '/moderation/dashboard'
+const routeChecker = async () => {
+  await checkLog()
+  if(isClient.value) return dashRouter.value = '/client/dashboard'
+  if(isDesigner.value) return dashRouter.value = '/pro/dashboard'
+  if(isModerator.value) return dashRouter.value = '/moderation/dashboard'
+}
+routeChecker()
 </script>
 
 <template>

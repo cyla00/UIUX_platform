@@ -25,17 +25,19 @@ const login = async () => {
             password: password_login.value,
         }
     }).then(async res => {
-        const addHours = (date:Date, hours:number) => {
-            date.setTime(date.getTime() + hours * 60 * 60 * 1000)
-            return date
-        }
-        const token = await useCookie('token', {
-            expires: addHours(new Date(), 4),
-        })
+        // const addHours = (date:Date, hours:number) => {
+        //     date.setTime(date.getTime() + hours * 60 * 60 * 1000)
+        //     return date
+        // }
+        // const token = await useCookie('token', {
+        //     expires: addHours(new Date(), 4),
+        // })
 
-        token.value = String(res.data.Token)
+        // token.value = String(res.data.Token)
+
+        localStorage.setItem("token", res.data.Token)
+        await checkLog()
         isLogged.value = true
-        // await checkLog()
         loading.value = false
         closeAuth()
         message.value = [{type: 'success', value: res.data.SuccMsg}]
@@ -57,8 +59,6 @@ const login = async () => {
             }
         }, 2000)
     }).catch(e => { 
-        console.log(e);
-        
         if(e.response.data.ErrMsg === 'not exists'){
             loading.value = false
             openAuthSign()

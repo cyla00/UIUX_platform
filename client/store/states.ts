@@ -110,12 +110,12 @@ export const loginStatus = defineStore('loginStatus', () => {
     
     const checkLog = async () => {
 
-        const token = await useCookie('token')
-        const rawToken = await jwtDecode(token.value)
+        const token = localStorage.getItem('token')
+        const rawToken = await jwtDecode(token)
         
-        await axios.post(`http://localhost:${env.apiPort}/${env.apiBase}/${env.apiVersion}/jwt`, {}, {
+        axios.post(`http://localhost:${env.apiPort}/${env.apiBase}/${env.apiVersion}/jwt`, {}, {
             headers: { 
-                Authorization: `${token.value}`, 
+                Authorization: `${token}`, 
             }
         }).then(_ => {
             isLogged.value = true
@@ -140,9 +140,8 @@ export const loginStatus = defineStore('loginStatus', () => {
     }
 
 
-    const logout = async () => {
-        const token = await useCookie('token')
-        token.value = null
+    const logout = () => {
+        localStorage.removeItem('token')
         reloadNuxtApp({
             path: "/",
         })
