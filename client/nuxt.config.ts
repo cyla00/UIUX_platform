@@ -44,10 +44,16 @@ export default defineNuxtConfig({
     ],
     runtimeConfig: {
       public: {
-        apiBase: '/api',
-        apiVersion: '/v.0.1',
+        apiPort: 3001,
+        apiBase: 'api',
+        apiVersion: 'v0.1',
         platformName: 'PLATFORM NAME'
       }
     },
-    
+    vite: {
+      esbuild: {
+        drop: ['debugger'],
+        pure: ['console.log', 'console.error', 'console.warn', 'console.debug', 'console.trace'],
+      },
+    },
 })

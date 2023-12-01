@@ -2,10 +2,9 @@ import { verify, Status } from '../deps.ts'
 import { key } from "./key.ts"
 
 export const jwtMiddleware = async (ctx, next) => {
-    const auth = ctx.request.headers.get("Authorization")
-    const cleanedToken = auth.split(' ')[1]
+    const token = ctx.request.headers.get('Authorization')
     try{
-        await verify(cleanedToken, key)
+        await verify(token, key)
         next()
     }catch(_e){
         ctx.response.status = Status.Unauthorized

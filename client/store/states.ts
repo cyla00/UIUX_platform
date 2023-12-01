@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import axios from "axios"
+import { jwtDecode } from "jwt-decode"
 
 export const authForm = defineStore('authForm', () => {
     
@@ -95,4 +97,56 @@ export const authClientForm = defineStore('authClientForm', () => {
     }
 
     return { isOpenClient, signUpFormClient, logInFormClient, resetPasswordFormClient, email_client, password_signup_client, password_login_client, openAuthSignClient, openAuthLogClient, openResetPasswordClient, closeAuthClient }
+})
+
+export const loginStatus = defineStore('loginStatus', () => {
+
+    const env = useRuntimeConfig().public
+
+    const isLogged = ref<boolean>(false)
+    const isClient = ref<boolean>(false)
+    const isDesigner = ref<boolean>(false)
+    const isModerator = ref<boolean>(false)
+    
+    const checkLog = async () => {
+
+        const token = await useCookie('token')
+        const rawToken = await jwtDecode(token.value)
+        
+        await axios.post(`http://localhost:${env.apiPort}/${env.apiBase}/${env.apiVersion}/jwt`, {}, {
+            headers: { 
+                Authorization: `${token.value}`, 
+            }
+        }).then(_ => {
+            isLogged.value = true
+            if(rawToken.role === 'client') {
+                isClient.value = true
+                isDesigner.value = false
+                isModerator.value = false
+            }
+            if(rawToken.role === 'designer') {
+                isDesigner.value = true
+                isModerator.value = false
+                isClient.value = false
+            }
+            if(rawToken.role === 'moderator') {
+                isModerator.value = true
+                isClient.value = false
+                isDesigner.value = false
+            }
+        }).catch(_ => {
+            isLogged.value = false
+        })
+    }
+
+
+    const logout = async () => {
+        const token = await useCookie('token')
+        token.value = null
+        reloadNuxtApp({
+            path: "/",
+        })
+    }
+
+    return { isLogged, isClient, isDesigner, isModerator, checkLog, logout }
 })

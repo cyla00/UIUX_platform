@@ -10,6 +10,7 @@ import { emailVerificationRoute } from './routes/universal/emailVerification.ts'
 import { forgotPasswordEmailSender } from "./routes/universal/forgotPasswordEmailSender.ts"
 import { resetPassword } from "./routes/universal/resetPassword.ts"
 import { jwtRoute } from "./routes/universal/jwt.ts"
+import { hashChecker } from "./routes/universal/hashChecker.ts"
 
 // client routes
 import { clientRegistration } from './routes/client/registration.ts'
@@ -23,7 +24,9 @@ import {jwtMiddleware} from './auth/jwt.ts'
 await load({export: true})
 const app = new Application()
 
-app.use(oakCors())
+app.use(oakCors({
+    origin: /^.+localhost:(3000|3001)$/,
+}))
 
 export const db = await databaseConnection()
 export const stripe = await stripeConnection()
@@ -40,7 +43,7 @@ app.use(login.routes(), login.allowedMethods()) // basic auth
 app.use(emailVerificationRoute.routes(), emailVerificationRoute.allowedMethods()) // input from front-end
 app.use(forgotPasswordEmailSender.routes(), forgotPasswordEmailSender.allowedMethods()) // needs email body
 app.use(resetPassword.routes(), resetPassword.allowedMethods()) // needs password body and url hash as bearer auth
-
+app.use(hashChecker.routes(), hashChecker.allowedMethods()) // checks if hash is valid
 // protected routes
 app.use(jwtMiddleware)
 app.use(jwtRoute.routes(), jwtRoute.allowedMethods())

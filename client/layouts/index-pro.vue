@@ -1,10 +1,21 @@
 <script setup lang="ts">
-import { authForm } from '../store/states'
+import { authForm, loginStatus } from '../store/states'
+import { storeToRefs } from 'pinia'
 
 const openForm = authForm()
 const { openAuthSign, openAuthLog } = openForm
 
-const logged = ref<boolean>(false)
+const logStatus = loginStatus()
+const { isLogged, isClient, isDesigner, isModerator } = storeToRefs(logStatus)
+const { checkLog } = logStatus
+
+const dashRouter = ref<string>()
+
+checkLog()
+
+if(isClient.value) dashRouter.value = '/client/dashboard'
+if(isDesigner.value) dashRouter.value = '/pro/dashboard'
+if(isModerator.value) dashRouter.value = '/moderation/dashboard'
 </script>
 
 <template>
@@ -19,9 +30,9 @@ const logged = ref<boolean>(false)
             <img src="https://fakeimg.pl/64x64" alt="">
           </div>
           <div class="flex justify-end my-auto text-c-neutral-0">
-            <NuxtLink to="/pro/dashboard" v-if="logged" class="mr-2 action-effect py-2 px-5 bg-c-orange rounded-lg">dashboard</NuxtLink>
-            <button @click="openAuthLog" v-if="!logged" class="mr-2 action-effect py-2 px-5 text-c-neutral-1000 rounded-lg">Log in</button>
-            <button @click="openAuthSign" v-if="!logged" class="mr-2 action-effect py-2 px-5 bg-c-orange rounded-lg">Sign up</button>
+            <NuxtLink :to="dashRouter" v-if="isLogged" class="mr-2 action-effect py-2 px-5 bg-c-orange rounded-lg">dashboard</NuxtLink>
+            <button @click="openAuthLog" v-if="!isLogged" class="mr-2 action-effect py-2 px-5 text-c-neutral-1000 rounded-lg">Log in</button>
+            <button @click="openAuthSign" v-if="!isLogged" class="mr-2 action-effect py-2 px-5 bg-c-orange rounded-lg">Start here</button>
           </div>
         </div>
         

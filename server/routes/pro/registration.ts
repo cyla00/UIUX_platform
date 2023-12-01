@@ -4,6 +4,7 @@ import { verificationEmail } from '../../mailer/verificationEmail.ts'
 import { checkEmailFormat } from '../../mailer/emailFormat.ts'
 import { bcryptHashing } from '../../auth/passwordHashing.ts'
 import { Status } from 'https://deno.land/std@0.200.0/http/http_status.ts'
+import { UserInterface } from '../../database/interfaces.ts';
 
 export const proRegistration = new Router()
 proRegistration.post(`/api/${Deno.env.get('API_VERSION')}/designer/registration`, async (ctx) => {
@@ -31,28 +32,26 @@ proRegistration.post(`/api/${Deno.env.get('API_VERSION')}/designer/registration`
     if(!passwordValid){
         ctx.response.status = Status.BadRequest
         return ctx.response.body = {
-            type: 'Provide a stronger password'
+            ErrMsg: 'Provide a stronger password'
         }
     }
     
     if(!checkEmailFormat(body.email)){
         ctx.response.status = Status.BadRequest
         return ctx.response.body = {
-            type: 'Provide a valid email'
+            ErrMsg: 'Provide a valid email'
         }
     }
 
-    await db.queryArray(`SELECT EXISTS (SELECT * FROM users WHERE email->>'value'=$1);`, [body.email]).then(async res => {
+    await db.queryArray<UserInterface>(`SELECT EXISTS (SELECT * FROM users WHERE email->>'value'=$1);`, [body.email]).then(async res => {
         if(res.rows[0][0]){
             ctx.response.status = Status.BadRequest
             return ctx.response.body = {
-                account: {
-                    exists: true,
-                }
+                ErrMsg: 'exists'
             }
         }
 
-        await db.queryArray(`INSERT INTO users(id, hash, active, role, email, password) VALUES ($1, $2, $3, $4, $5, $6)`, 
+        await db.queryArray<UserInterface>(`INSERT INTO users(id, hash, active, role, email, password) VALUES ($1, $2, $3, $4, $5, $6)`, 
         [new_id, new_hash, false, 'designer', {value: body.email, verified: false}, hashed_pass]).then(async _ => {
             await verificationEmail(
                 String(Deno.env.get('EMAIL_AUTH_USER')),

@@ -46,6 +46,7 @@ login.post(`/api/${Deno.env.get('API_VERSION')}/login`, async (ctx) => {
 
         const token = await create({ alg: "HS512", typ: "JWT", aud: "designer" }, {
             id: res.rows[0].id,
+            role: res.rows[0].role,
             exp: getNumericDate((60*60)*4)
         }, key)
                             

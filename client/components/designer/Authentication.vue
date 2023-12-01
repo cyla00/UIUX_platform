@@ -1,24 +1,96 @@
 <script setup lang="ts">
-import { authForm } from '../../store/states'
+import axios from "axios"
+import { authForm, loginStatus } from '../../store/states'
 import { storeToRefs } from 'pinia'
+import { reloadNuxtApp } from "nuxt/app"
 
-const env = useRuntimeConfig()
+const env = useRuntimeConfig().public
 
 const message = ref<Array<alertMessage>>([])
+const loading = ref<boolean>(false)
 
 const openForm = authForm()
-let { isOpen, signUpForm, logInForm, resetPasswordForm, email, password_signup, password_login } = storeToRefs(openForm)
+const { isOpen, signUpForm, logInForm, resetPasswordForm, email, password_signup, password_login } = storeToRefs(openForm)
 const { closeAuth, openAuthLog, openAuthSign, openResetPassword } = openForm
 
-const login = () => {
-    message.value = [{type: 'success', value: 'this is a test success message'}]
+const logStatus = loginStatus()
+const { isLogged, isClient, isDesigner, isModerator } = storeToRefs(logStatus)
+const { checkLog } = logStatus
+
+const login = async () => {
+    loading.value = true
+    await axios.post(`http://localhost:${env.apiPort}/${env.apiBase}/${env.apiVersion}/login`, {}, {
+        auth: {
+            username: email.value,
+            password: password_login.value,
+        }
+    }).then(async res => {
+        const addHours = (date:Date, hours:number) => {
+            date.setTime(date.getTime() + hours * 60 * 60 * 1000)
+            return date
+        }
+        const token = await useCookie('token', {
+            expires: addHours(new Date(), 4),
+        })
+
+        token.value = String(res.data.Token)
+        isLogged.value = true
+        // await checkLog()
+        loading.value = false
+        closeAuth()
+        message.value = [{type: 'success', value: res.data.SuccMsg}]
+        setTimeout(() => {
+            if(isDesigner.value) {
+                return reloadNuxtApp({
+                    path: "/pro/dashboard",
+                })
+            }
+            if(isClient.value) {
+                return reloadNuxtApp({
+                    path: "/client/dashboard",
+                })
+            }
+            if(isModerator.value) {
+                return reloadNuxtApp({
+                    path: "/moderation/dashboard",
+                })
+            }
+        }, 2000)
+    }).catch(e => { 
+        console.log(e);
+        
+        if(e.response.data.ErrMsg === 'not exists'){
+            loading.value = false
+            openAuthSign()
+        }else{
+            loading.value = false
+            return message.value = [{type: 'error', value: e.response.data.ErrMsg}]
+        }   
+    })
 }
 
-const signup = () => {
-    message.value = [{type: 'error', value: 'this is a test error message'}]
+const signup = async () => {
+    loading.value = true
+    await axios.post(`http://localhost:${env.apiPort}/${env.apiBase}/${env.apiVersion}/designer/registration`, {
+        email: email.value,
+        password: password_signup.value,
+    }, {}).then(async res => {
+        loading.value = false
+        closeAuth()
+        return message.value = [{type: 'success', value: res.data.SuccMsg}]
+    }).catch(e => {
+        if(e.response.data.ErrMsg === 'exists'){
+            loading.value = false
+            openAuthLog()
+        }else{
+            loading.value = false
+            closeAuth()
+            return message.value = [{type: 'error', value: e.response.data.ErrMsg}]
+        }
+    })
 }
 
-const resetPassword = () => {
+const resetPassword = async () => {
     message.value = [{type: 'error', value: 'this is a test error message'}]
 }
 
@@ -43,8 +115,8 @@ const resetPassword = () => {
                     <p class="w-full text-sm">At least 8 characters, one uppercase, one lowercase and one special symbol (like !@#$%^)</p>
                 </div>
                 <div class="text-center">
-                    <button @click="signup" class="text-c-neutral-0 py-2 px-5 bg-c-orange w-full action-effect font-semibold rounded-md mb-3">Sign up</button>
-                    <p class="text-center w-full text-sm">By creating a {{ env.public.platformName }} account you accept our Terms of service and Privacy Policy.</p>
+                    <button @click="signup" class="text-c-neutral-0 py-2 px-5 bg-c-orange w-full action-effect font-semibold rounded-md mb-3">Sign up <i v-if="loading" class='bx bx-loader-alt bx-flip-vertical bx-spin'></i></button>
+                    <p class="text-center w-full text-sm">By creating a {{ env.platformName }} account you accept our Terms of service and Privacy Policy.</p>
                 </div>
             </div>
         </div>
@@ -65,7 +137,7 @@ const resetPassword = () => {
                     <input class="py-2 w-full px-5 mb-3 border border-c-neutral-500 rounded-md outline-none focus:border-c-blue duration-200 text-c-neutral-800" type="password" v-model="password_login" placeholder="Password">
                 </div>
                 <div class="text-center">
-                    <button @click="login" class="text-c-neutral-0 py-2 px-5 bg-c-orange w-full action-effect font-semibold rounded-md mb-3">Log in</button>
+                    <button @click="login" class="text-c-neutral-0 py-2 px-5 bg-c-orange w-full action-effect font-semibold rounded-md mb-3">Log in <i v-if="loading" class='bx bx-loader-alt bx-flip-vertical bx-spin'></i></button>
                     <button @click="openResetPassword" class="text-c-dark-blue action-effect font-semibold text-sm">Reset password</button>
                 </div>
             </div>
@@ -83,7 +155,7 @@ const resetPassword = () => {
                     <input class="py-2 w-full px-5 mb-3 border border-c-neutral-500 rounded-md outline-none focus:border-c-blue duration-200 text-c-neutral-800" type="email" v-model="email" placeholder="Email">
                 </div>
                 <div class="text-center">
-                    <button @click="resetPassword" class="text-c-neutral-0 py-2 px-5 bg-c-neutral-300 w-full action-effect font-semibold rounded-md mb-3">Reset Password</button>
+                    <button @click="resetPassword" class="text-c-neutral-0 py-2 px-5 bg-c-neutral-300 w-full action-effect font-semibold rounded-md mb-3">Reset Password <i v-if="loading" class='bx bx-loader-alt bx-flip-vertical bx-spin'></i></button>
                     <button @click="openAuthLog" class="text-c-dark-blue action-effect font-semibold text-sm">Cancel</button>
                 </div>
             </div>

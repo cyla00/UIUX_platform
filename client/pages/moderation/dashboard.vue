@@ -1,0 +1,3 @@
+<template>
+    moderator dash
+</template>
