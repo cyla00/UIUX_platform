@@ -111,32 +111,38 @@ export const loginStatus = defineStore('loginStatus', () => {
     const checkLog = async () => {
 
         const token = localStorage.getItem('token')
-        const rawToken = await jwtDecode(token)
-        
-        axios.post(`http://localhost:${env.apiPort}/${env.apiBase}/${env.apiVersion}/jwt`, {}, {
-            headers: { 
-                Authorization: `${token}`, 
-            }
-        }).then(_ => {
-            isLogged.value = true
-            if(rawToken.role === 'client') {
-                isClient.value = true
-                isDesigner.value = false
-                isModerator.value = false
-            }
-            if(rawToken.role === 'designer') {
-                isDesigner.value = true
-                isModerator.value = false
-                isClient.value = false
-            }
-            if(rawToken.role === 'moderator') {
-                isModerator.value = true
-                isClient.value = false
-                isDesigner.value = false
-            }
-        }).catch(_ => {
+
+        if(token){
+            const rawToken = await jwtDecode(token)
+            axios.post(`http://localhost:${env.apiPort}/${env.apiBase}/${env.apiVersion}/jwt`, {}, {
+                headers: { 
+                    Authorization: `${token}`, 
+                }
+            }).then(_ => {
+                isLogged.value = true
+                if(rawToken.role === 'client') {
+                    isClient.value = true
+                    isDesigner.value = false
+                    isModerator.value = false
+                }
+                if(rawToken.role === 'designer') {
+                    isDesigner.value = true
+                    isModerator.value = false
+                    isClient.value = false
+                }
+                if(rawToken.role === 'moderator') {
+                    isModerator.value = true
+                    isClient.value = false
+                    isDesigner.value = false
+                }
+            }).catch(_ => {
+                isLogged.value = false
+            })
+        }else{
             isLogged.value = false
-        })
+        }
+        
+        
     }
 
 

@@ -2,9 +2,8 @@
 import axios from 'axios'
 
 definePageMeta({
-    layout: 'index-pro',
     pageTransition: true,
-    middleware: ['hash-checker'],
+    // middleware: ['hash-checker'],
 })
 
 const env = useRuntimeConfig().public
@@ -34,14 +33,14 @@ const verifyEmail = async () => {
 </script>
 
 <template>
-    <main class="h-[90vh] flex justify-center">
+    <main class="h-[100vh] flex justify-center">
         <Popup :Message="message"/>
         <div class="bg-c-neutral-0 m-auto p-10 border border-c-neutral-500 rounded-xl w-96">
-            <div class="m-auto flex justify-center">
+            <div class="m-auto flex justify-center w-20">
                 <img src="~/assets/email-verification.webp" alt="">
             </div>
             <div class="text-center my-10">
-                <h2 class="text-2xl font-bold">verify your email address</h2>
+                <h2 class="text-2xl font-bold">Verify your email address</h2>
                 <p class="text-sm font-normal">Your account has been successfully registered. To complete the process please verify your email address.</p>
             </div>
             <div class="m-auto">

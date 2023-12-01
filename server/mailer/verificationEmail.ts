@@ -8,7 +8,7 @@ export const verificationEmail = async (auth_email: string, user_email: string, 
         content: "CONTENT HERE",
         html: `
         <p>To continue your registration process, activate your account by following the link below.</p>
-        <a href="http://${platform_host}/verify-email/${user_hash}">verify account</a>
+        <a href="http://${platform_host}/email-verification/${user_hash}">verify account</a>
         `,
     })
 }

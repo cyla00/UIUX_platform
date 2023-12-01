@@ -21,9 +21,9 @@ import { proRegistration } from './routes/pro/registration.ts'
 // middlewares
 import {jwtMiddleware} from './auth/jwt.ts'
 
-await load({export: true})
-const app = new Application()
 
+const app = new Application()
+await load({export: true})
 app.use(oakCors({
     origin: /^.+localhost:(3000|3001)$/,
 }))

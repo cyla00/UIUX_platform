@@ -15,7 +15,7 @@ emailVerificationRoute.post(`/api/${Deno.env.get('API_VERSION')}/email-verificat
         }
         ctx.response.status = Status.OK
         return ctx.response.body = {
-            SuccMsg: 'Email successfully verified'
+            SuccMsg: 'Email successfully verified, please log in'
         }
     }).catch(e => {
         ctx.response.status = Status.BadGateway

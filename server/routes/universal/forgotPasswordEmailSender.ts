@@ -33,7 +33,7 @@ forgotPasswordEmailSender.post(`/api/${Deno.env.get('API_VERSION')}/forgot-passw
         ).then(_ => {
             ctx.response.status = Status.OK
             return ctx.response.body = {
-                SuccMsg: 'Check your email to continue'
+                SuccMsg: 'Follow the link on your email to continue'
             }
         }).catch(_ => {
             ctx.response.status = Status.BadGateway

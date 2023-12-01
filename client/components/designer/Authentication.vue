@@ -25,16 +25,6 @@ const login = async () => {
             password: password_login.value,
         }
     }).then(async res => {
-        // const addHours = (date:Date, hours:number) => {
-        //     date.setTime(date.getTime() + hours * 60 * 60 * 1000)
-        //     return date
-        // }
-        // const token = await useCookie('token', {
-        //     expires: addHours(new Date(), 4),
-        // })
-
-        // token.value = String(res.data.Token)
-
         localStorage.setItem("token", res.data.Token)
         await checkLog()
         isLogged.value = true
@@ -91,7 +81,17 @@ const signup = async () => {
 }
 
 const resetPassword = async () => {
-    message.value = [{type: 'error', value: 'this is a test error message'}]
+    loading.value = true
+    await axios.post(`http://localhost:${env.apiPort}/${env.apiBase}/${env.apiVersion}/forgot-password`, {
+        email: email.value
+    }, {}).then(res => {
+        loading.value = false
+        closeAuth()
+        return message.value = [{type: 'success', value: res.data.SuccMsg}]
+    }).catch(e => {
+        loading.value = false
+        return message.value = [{type: 'error', value: e.response.data.ErrMsg}]
+    })
 }
 
 </script>

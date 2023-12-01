@@ -9,15 +9,19 @@ const logStatus = loginStatus()
 const { isLogged, isClient, isDesigner, isModerator } = storeToRefs(logStatus)
 const { checkLog } = logStatus
 
-const dashRouter = ref<string>()
+checkLog()
 
 const routeChecker = async () => {
-  await checkLog()
-  if(isClient.value) return dashRouter.value = '/client/dashboard'
-  if(isDesigner.value) return dashRouter.value = '/pro/dashboard'
-  if(isModerator.value) return dashRouter.value = '/moderation/dashboard'
+  if(isClient.value) {
+    await navigateTo('/client/dashboard')
+  }
+  if(isDesigner.value) {
+    await navigateTo('/pro/dashboard')
+  }
+  if(isModerator.value) {
+    await navigateTo('/moderation/dashboard')
+  }
 }
-routeChecker()
 </script>
 
 <template>
@@ -32,7 +36,7 @@ routeChecker()
             <img src="https://fakeimg.pl/64x64" alt="">
           </div>
           <div class="flex justify-end my-auto text-c-neutral-0">
-            <NuxtLink :to="dashRouter" v-if="isLogged" class="mr-2 action-effect py-2 px-5 bg-c-orange rounded-lg">dashboard</NuxtLink>
+            <button @click="routeChecker" v-if="isLogged" class="mr-2 action-effect py-2 px-5 bg-c-orange rounded-lg">dashboard</button>
             <button @click="openAuthLog" v-if="!isLogged" class="mr-2 action-effect py-2 px-5 text-c-neutral-1000 rounded-lg">Log in</button>
             <button @click="openAuthSign" v-if="!isLogged" class="mr-2 action-effect py-2 px-5 bg-c-orange rounded-lg">Start here</button>
           </div>

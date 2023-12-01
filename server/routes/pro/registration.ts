@@ -62,7 +62,7 @@ proRegistration.post(`/api/${Deno.env.get('API_VERSION')}/designer/registration`
             ).then(_ => {
                 ctx.response.status = Status.OK
                 return ctx.response.body = {
-                    SuccMsg: 'Successfully registered'
+                    SuccMsg: 'Successfully registered, check your email to continue'
                 }
             }).catch(_ => {
                 ctx.response.status = Status.BadGateway

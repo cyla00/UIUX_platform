@@ -7,13 +7,12 @@ export const resetPassword = new Router()
 resetPassword.post(`/api/${Deno.env.get('API_VERSION')}/reset-password`, async (ctx) => {
 
     const body  = await ctx.request.body().value
-    const authHeaders  = ctx.request.headers.get('Authorization')
-    const old_hash = authHeaders?.split(' ')[1]
+    const old_hash  = ctx.request.headers.get('Authorization')
 
     if(!body.password){
         ctx.response.status = Status.BadRequest
         return ctx.response.body = {
-            ErrMsg: 'Provide a valid email'
+            ErrMsg: 'Insert a password'
         }
     }
 
@@ -28,7 +27,7 @@ resetPassword.post(`/api/${Deno.env.get('API_VERSION')}/reset-password`, async (
     if(!passwordValid){
         ctx.response.status = Status.BadRequest
         return ctx.response.body = {
-            type: 'Provide a stronger password'
+            ErrMsg: 'Provide a stronger password'
         }
     }
 
