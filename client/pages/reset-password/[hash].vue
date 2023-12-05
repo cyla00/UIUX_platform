@@ -3,7 +3,7 @@ import axios from 'axios'
 
 definePageMeta({
     pageTransition: true,
-    middleware: ['hash-checker'],
+    // middleware: ['hash-checker'],
 })
 
 const env = useRuntimeConfig().public

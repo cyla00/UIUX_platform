@@ -10,8 +10,8 @@ const env = useRuntimeConfig().public
 </script>
 
 <template>
-    <main class="text-center font-bold">
-        <h1>pro</h1>
+    <main class="p-10">
+        <h1>account settings</h1>
     </main>
 </template>
 

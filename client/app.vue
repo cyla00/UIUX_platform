@@ -55,4 +55,10 @@ i{
 .shadow{
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
+
+.url-link-style-selection{
+  background-color: #E7F6F9;
+  color: #2A8C9F;
+  border-radius: 8px;
+}
 </style>

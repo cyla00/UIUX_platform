@@ -43,7 +43,7 @@ login.post(`/api/${Deno.env.get('API_VERSION')}/login`, async (ctx) => {
                 ErrMsg: 'Incorrect credentials'
             }
         }
-
+        
         const token = await create({ alg: "HS512", typ: "JWT", aud: "designer" }, {
             id: res.rows[0].id,
             role: res.rows[0].role,
