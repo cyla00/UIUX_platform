@@ -3,6 +3,7 @@
 definePageMeta({    
     layout: 'private-pro',
     pageTransition: true,
+    middleware: ['auth-checker'],
 })
 
 const env = useRuntimeConfig().public

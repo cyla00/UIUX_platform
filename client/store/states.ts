@@ -110,45 +110,65 @@ export const loginStatus = defineStore('loginStatus', () => {
     
     const checkLog = async () => {
 
-        const token = localStorage.getItem('token')
-
-        if(token){
-            const rawToken = await jwtDecode(token)
-            axios.post(`http://localhost:${env.apiPort}/${env.apiBase}/${env.apiVersion}/jwt`, {}, {
-                headers: { 
-                    Authorization: `${token}`, 
-                }
-            }).then(_ => {
-                isLogged.value = true
-                if(rawToken.role === 'client') {
+        const token = await useCookie('token')
+        
+        if(!token.value){
+            return isLogged.value = false
+        }
+        
+        const rawToken = await jwtDecode(token.value)
+            
+        await axios.post(`http://localhost:${env.apiPort}/${env.apiBase}/${env.apiVersion}/jwt`, {}, {
+            headers: { 
+                Authorization: `${token.value}`, 
+            }
+        }).then(_ => {
+            isLogged.value = true
+            switch(rawToken.role){
+                case 'client':
                     isClient.value = true
                     isDesigner.value = false
                     isModerator.value = false
-                }
-                if(rawToken.role === 'designer') {
+                    break
+                case 'designer':
                     isDesigner.value = true
                     isModerator.value = false
                     isClient.value = false
-                }
-                if(rawToken.role === 'moderator') {
+                    break
+                case 'moderator':
                     isModerator.value = true
                     isClient.value = false
                     isDesigner.value = false
-                }
-            }).catch(_ => {
-                isLogged.value = false
-            })
-        }else{
-            isLogged.value = false
-        }
-        
-        
+                    break
+            }
+            console.log(isDesigner.value);
+            
+            // if(rawToken.role === 'client') {
+            //     isClient.value = true
+            //     isDesigner.value = false
+            //     return isModerator.value = false
+            // }
+            // if(rawToken.role === 'designer') {
+            //     isDesigner.value = true
+            //     isModerator.value = false
+            //     return isClient.value = false
+            // }
+            // if(rawToken.role === 'moderator') {
+            //     isModerator.value = true
+            //     isClient.value = false
+            //     return isDesigner.value = false
+            // }
+        }).catch(_ => {
+            return isLogged.value = false
+        })
     }
 
 
-    const logout = () => {
+    const logout = async () => {
         localStorage.removeItem('token')
-        reloadNuxtApp({
+        const token = await useCookie('token')
+        token.value = null
+        return reloadNuxtApp({
             path: "/",
         })
     }

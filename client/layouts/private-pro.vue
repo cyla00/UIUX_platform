@@ -24,8 +24,6 @@ const { logout } = logStatus
           <NuxtLink to="/pro/payments" exactActiveClass="url-link-style-selection" class="w-full p-2 action-effect m-auto"><span class="material-symbols-outlined">attach_money</span><p>payments</p></NuxtLink>
         </div>
       </div>
-      
-      <div class="bg-c-neutral-100 my-5 h-[1px]"></div>
 
       <div class="m-auto h-full"></div>
 

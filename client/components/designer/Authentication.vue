@@ -25,29 +25,40 @@ const login = async () => {
             password: password_login.value,
         }
     }).then(async res => {
-        localStorage.setItem("token", res.data.Token)
+        const token = useCookie('token')
+        token.value = res.data.Token
         await checkLog()
         isLogged.value = true
         loading.value = false
-        closeAuth()
+        await closeAuth()
         message.value = [{type: 'success', value: res.data.SuccMsg}]
-        setTimeout(() => {
-            if(isDesigner.value) {
-                return reloadNuxtApp({
+        const designerRoute = await isDesigner.value
+        console.log(designerRoute);
+        
+        if(isDesigner.value) {
+            setTimeout(() => {
+                reloadNuxtApp({
                     path: "/pro/dashboard",
                 })
-            }
-            if(isClient.value) {
-                return reloadNuxtApp({
+            }, 2000) 
+        }
+
+        if(isClient.value) {
+            setTimeout(() => {
+                reloadNuxtApp({
                     path: "/client/dashboard",
                 })
-            }
-            if(isModerator.value) {
-                return reloadNuxtApp({
+            }, 2000)
+        }
+
+        if(isModerator.value) {
+            setTimeout(() => {
+                reloadNuxtApp({
                     path: "/moderation/dashboard",
                 })
-            }
-        }, 2000)
+            }, 2000)
+        }
+
     }).catch(e => { 
         if(e.response.data.ErrMsg === 'not exists'){
             loading.value = false

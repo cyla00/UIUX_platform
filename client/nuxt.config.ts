@@ -2,6 +2,7 @@ export default defineNuxtConfig({
     devtools: { 
       enabled: true 
     },
+    cors: true,
     app: {
       head: {
         charset: 'utf-8',
