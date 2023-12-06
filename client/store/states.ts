@@ -141,23 +141,7 @@ export const loginStatus = defineStore('loginStatus', () => {
                     isDesigner.value = false
                     break
             }
-            console.log(isDesigner.value);
-            
-            // if(rawToken.role === 'client') {
-            //     isClient.value = true
-            //     isDesigner.value = false
-            //     return isModerator.value = false
-            // }
-            // if(rawToken.role === 'designer') {
-            //     isDesigner.value = true
-            //     isModerator.value = false
-            //     return isClient.value = false
-            // }
-            // if(rawToken.role === 'moderator') {
-            //     isModerator.value = true
-            //     isClient.value = false
-            //     return isDesigner.value = false
-            // }
+            console.log('des ' + isDesigner.value, 'cli ' + isClient.value, 'mod ' + isModerator.value);
         }).catch(_ => {
             return isLogged.value = false
         })
@@ -165,7 +149,6 @@ export const loginStatus = defineStore('loginStatus', () => {
 
 
     const logout = async () => {
-        localStorage.removeItem('token')
         const token = await useCookie('token')
         token.value = null
         return reloadNuxtApp({

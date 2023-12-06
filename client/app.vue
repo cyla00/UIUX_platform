@@ -61,4 +61,26 @@ i{
   color: #2A8C9F;
   border-radius: 8px;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(42,140,159);
+  /* background: linear-gradient(180deg, rgba(42,140,159,1) 0%, rgba(209,169,167,1) 100%); */
+  border-radius: 100px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #343A40;
+}
 </style>

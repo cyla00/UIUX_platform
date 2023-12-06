@@ -30,35 +30,14 @@ const login = async () => {
         await checkLog()
         isLogged.value = true
         loading.value = false
-        await closeAuth()
+        closeAuth()
         message.value = [{type: 'success', value: res.data.SuccMsg}]
-        const designerRoute = await isDesigner.value
-        console.log(designerRoute);
         
-        if(isDesigner.value) {
-            setTimeout(() => {
-                reloadNuxtApp({
-                    path: "/pro/dashboard",
-                })
-            }, 2000) 
-        }
-
-        if(isClient.value) {
-            setTimeout(() => {
-                reloadNuxtApp({
-                    path: "/client/dashboard",
-                })
-            }, 2000)
-        }
-
-        if(isModerator.value) {
-            setTimeout(() => {
-                reloadNuxtApp({
-                    path: "/moderation/dashboard",
-                })
-            }, 2000)
-        }
-
+        setTimeout(() => {
+            if(isDesigner.value) reloadNuxtApp({path: "/pro/dashboard"})
+            if(isClient.value) reloadNuxtApp({path: "/client/dashboard"})
+            if(isModerator.value) reloadNuxtApp({path: "/moderation/dashboard"})
+        }, 2000)
     }).catch(e => { 
         if(e.response.data.ErrMsg === 'not exists'){
             loading.value = false
