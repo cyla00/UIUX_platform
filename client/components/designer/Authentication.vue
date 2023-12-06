@@ -25,11 +25,11 @@ const login = async () => {
             password: password_login.value,
         }
     }).then(async res => {
-        const token = useCookie('token')
+        const token = await useCookie('token')
         token.value = res.data.Token
-        await checkLog()
         isLogged.value = true
         loading.value = false
+        await checkLog(res.data.Token)
         closeAuth()
         message.value = [{type: 'success', value: res.data.SuccMsg}]
         

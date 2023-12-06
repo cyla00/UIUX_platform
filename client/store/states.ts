@@ -108,19 +108,17 @@ export const loginStatus = defineStore('loginStatus', () => {
     const isDesigner = ref<boolean>(false)
     const isModerator = ref<boolean>(false)
     
-    const checkLog = async () => {
-
-        const token = await useCookie('token')
+    const checkLog = async (token:string) => {
         
-        if(!token.value){
+        if(!token){
             return isLogged.value = false
         }
+
+        const rawToken = await jwtDecode(token)
         
-        const rawToken = await jwtDecode(token.value)
-            
         await axios.post(`http://localhost:${env.apiPort}/${env.apiBase}/${env.apiVersion}/jwt`, {}, {
             headers: { 
-                Authorization: `${token.value}`, 
+                Authorization: `${token}`, 
             }
         }).then(_ => {
             isLogged.value = true
@@ -141,12 +139,10 @@ export const loginStatus = defineStore('loginStatus', () => {
                     isDesigner.value = false
                     break
             }
-            console.log('des ' + isDesigner.value, 'cli ' + isClient.value, 'mod ' + isModerator.value);
         }).catch(_ => {
             return isLogged.value = false
         })
     }
-
 
     const logout = async () => {
         const token = await useCookie('token')

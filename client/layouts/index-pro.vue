@@ -9,7 +9,8 @@ const logStatus = loginStatus()
 const { isLogged, isClient, isDesigner, isModerator } = storeToRefs(logStatus)
 const { checkLog } = logStatus
 
-checkLog()
+const token = useCookie('token')
+checkLog(token.value)
 
 const routeChecker = async () => {
   if(isClient.value) {
