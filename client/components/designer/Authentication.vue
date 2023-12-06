@@ -29,6 +29,10 @@ const login = async () => {
         token.value = res.data.Token
         isLogged.value = true
         loading.value = false
+        if(!res.data.isCompleted){
+            const isComplete = await useCookie('isComplete')
+            isComplete.value = res.data.isCompleted
+        }
         await checkLog(res.data.Token)
         closeAuth()
         message.value = [{type: 'success', value: res.data.SuccMsg}]

@@ -2,10 +2,18 @@
 import { loginStatus } from '../store/states'
 import { storeToRefs } from 'pinia'
 import { jwtDecode } from 'jwt-decode'
+import { onMounted } from 'vue';
 
 const logStatus = loginStatus()
 const { isLogged, isClient, isDesigner, isModerator } = storeToRefs(logStatus)
 const { logout } = logStatus
+
+const completeAccount = ref<boolean>(false) 
+const isCompleted = useCookie('isComplete')
+
+if(isCompleted.value == false){
+    completeAccount.value = true
+}
 
 </script>
 
@@ -31,6 +39,7 @@ const { logout } = logStatus
 
       <div class="text-[10px] text-center grid grid-flow-rows">
         <div class="flex m-2 w-16 h-16 relative">
+          <div v-if="completeAccount" class="flex justify-center bg-c-error-dark absolute z-20 bottom-0 right-0 rounded-full text-c-neutral-0"><span class="material-symbols-outlined">exclamation</span></div>
           <NuxtLink to="/pro/account" exactActiveClass="url-link-style-selection" class="w-full p-2 action-effect m-auto"><span class="material-symbols-outlined">account_circle</span><p>account</p></NuxtLink>
         </div>
         <div class="flex m-2 w-16 h-16">
@@ -54,13 +63,5 @@ const { logout } = logStatus
 </template>
 
 <style scoped>
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.5s ease;
-}
 
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
 </style>
