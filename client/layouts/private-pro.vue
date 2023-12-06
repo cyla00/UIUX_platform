@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import { loginStatus } from '../store/states'
 import { storeToRefs } from 'pinia'
+import { jwtDecode } from 'jwt-decode'
 
 const logStatus = loginStatus()
 const { isLogged, isClient, isDesigner, isModerator } = storeToRefs(logStatus)
 const { logout } = logStatus
+
 </script>
 
 <template>
   <div class="flex h-screen">
-    <header class="font-bold flex flex-col py-2 h-full border-r">
+    <header class="font-bold flex flex-col py-2 h-full border-r text-c-neutral-800">
       <div class="m-auto">
-        <img src="https://fakeimg.pl/54x54" alt="">
+        <img src="https://fakeimg.pl/54x54" class="rounded-full" alt="">
       </div>
 
       <div class="bg-c-neutral-100 my-5 h-[1px]"></div>
@@ -28,7 +30,7 @@ const { logout } = logStatus
       <div class="m-auto h-full"></div>
 
       <div class="text-[10px] text-center grid grid-flow-rows">
-        <div class="flex m-2 w-16 h-16">
+        <div class="flex m-2 w-16 h-16 relative">
           <NuxtLink to="/pro/account" exactActiveClass="url-link-style-selection" class="w-full p-2 action-effect m-auto"><span class="material-symbols-outlined">account_circle</span><p>account</p></NuxtLink>
         </div>
         <div class="flex m-2 w-16 h-16">
@@ -52,5 +54,13 @@ const { logout } = logStatus
 </template>
 
 <style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
 
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
 </style>
