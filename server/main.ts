@@ -50,7 +50,7 @@ app.use(jwtRoute.routes(), jwtRoute.allowedMethods())
 
 await app.listen({ port: Number(Deno.env.get('SERVER_PORT')) }).then(() => {
     console.log(`${Deno.env.get('API_NAME')}|${Deno.env.get('API_VERSION')} listening on port ${Deno.env.get('SERVER_PORT')}`)
-});
+})
 
 
 

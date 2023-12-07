@@ -51,10 +51,19 @@ login.post(`/api/${Deno.env.get('API_VERSION')}/login`, async (ctx) => {
         }, key)
                             
         ctx.response.status = Status.OK
-        return ctx.response.body = {
-            SuccMsg: 'Successfully connected',
-            Token: token,
+        if(res.rows[0].role === 'designer' && !res.rows[0].first_name){
+            return ctx.response.body = {
+                SuccMsg: 'Successfully connected',
+                Token: token,
+                isCompleted: false
+            }
+        }else{
+            return ctx.response.body = {
+                SuccMsg: 'Successfully connected',
+                Token: token,
+            }
         }
+        
     }).catch(_ => {
         ctx.response.status = Status.BadGateway
         return ctx.response.body = {
