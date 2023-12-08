@@ -18,9 +18,7 @@ if(isCompleted.value == false){
 </script>
 
 <template>
-
   <DesignerCompleteAccount v-if="completeAccount"/>
-
   <div class="flex h-screen">
     <header class="font-bold flex flex-col py-2 h-full border-r text-c-neutral-800">
       <div class="m-auto">

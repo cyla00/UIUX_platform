@@ -11,7 +11,7 @@ watch(() => country.value, (event:string) => {
 
 <template>
     <label class="font-semibold mb-2">Country *</label>
-    <select v-model="country" class="outline-none border border-c-neutral-200 py-2 px-5 rounded-md focus:border-c-teal-main duration-200 h-full">
+    <select disabled="true" v-model="country" class="outline-none border border-c-neutral-200 py-2 px-5 rounded-md focus:border-c-teal-main duration-200 h-full">
         <option disabled>select a country</option>
         <optgroup label="North America">
             <option value="US">United States</option>

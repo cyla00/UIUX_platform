@@ -116,12 +116,12 @@ const saveData = async () => {
             
             <div class="grid text-start grid-cols-4 max-xl:grid-cols-2 max-md:grid-cols-1">
                 <div class="flex flex-col w-72 max-xl:mb-5 max-md:w-full">
-                    <label class="font-semibold mb-2">First name *</label>
+                    <label class="font-semibold mb-2">First name</label>
                     <input type="text" v-model="firstName" class="outline-none border border-c-neutral-200 py-2 px-5 rounded-md focus:border-c-teal-main duration-200">
                 </div>
 
                 <div class="flex flex-col w-72 max-xl:mb-5 max-md:w-full">
-                    <label class="font-semibold mb-2">Last name *</label>
+                    <label class="font-semibold mb-2">Last name</label>
                     <input type="text" v-model="lastName" class="outline-none border border-c-neutral-200 py-2 px-5 rounded-md focus:border-c-teal-main duration-200">
                 </div>
 
@@ -130,7 +130,7 @@ const saveData = async () => {
                 </div>
 
                 <div class="flex flex-col w-72 max-xl:mb-5 max-md:w-full">
-                    <label class="font-semibold mb-2">Paypal email * (to receive payments)</label>
+                    <label class="font-semibold mb-2">Paypal email (to receive payments)</label>
                     <input type="text" v-model="paypalUrl" class="outline-none border border-c-neutral-200 py-2 px-5 rounded-md focus:border-c-teal-main duration-200">
                 </div>
             </div>
@@ -148,12 +148,12 @@ const saveData = async () => {
                 </div>
 
                 <div class="flex flex-col w-72 max-xl:mb-5 max-md:w-full">
-                    <label class="font-semibold mb-2">Portfolio or website *</label>
+                    <label class="font-semibold mb-2">Portfolio or website</label>
                     <input placeholder="https://..." type="text" v-model="portoflioUrl" class="outline-none border border-c-neutral-200 py-2 px-5 rounded-md focus:border-c-teal-main duration-200">
                 </div>
 
                 <div class="flex flex-col w-72 max-xl:mb-5 max-md:w-full">
-                    <label class="font-semibold mb-2">Highest seniority level achieved *</label>
+                    <label class="font-semibold mb-2">Highest seniority level achieved</label>
                     <select v-model="seniorityLevel" class="outline-none border border-c-neutral-200 py-2 px-5 rounded-md focus:border-c-teal-main duration-200 h-full">
                         <option disabled value="">select your seniotiry level</option>
                         <option value="Senior">Senior</option>
@@ -171,7 +171,7 @@ const saveData = async () => {
 
         <div class="text-sm border-b pb-5 mb-5">
             <div class="text-base mb-5">
-                <h3 class="font-semibold uppercase text-c-orange">Current job title *</h3>
+                <h3 class="font-semibold uppercase text-c-orange">Current job title</h3>
             </div>
             <div class="grid grid-cols-4 max-xl:grid-cols-2 max-md:grid-cols-1">
                 <div v-for="i in jobTitles" :key="i" class="mb-5">
@@ -183,7 +183,7 @@ const saveData = async () => {
 
         <div class="text-sm border-b pb-5 mb-5">
             <div class="text-base mb-5">
-                <h3 class="font-semibold uppercase text-c-orange">Domain experience *</h3>
+                <h3 class="font-semibold uppercase text-c-orange">Domain experience</h3>
             </div>
             <div class="grid grid-cols-4 max-xl:grid-cols-2 max-md:grid-cols-1">
                 <div v-for="i in domainExperiences" :key="i" class="mb-5">
@@ -195,7 +195,7 @@ const saveData = async () => {
 
         <div class="text-sm border-b pb-5 mb-5">
             <div class="text-base mb-5">
-                <h3 class="font-semibold uppercase text-c-orange">Speciality *</h3>
+                <h3 class="font-semibold uppercase text-c-orange">Speciality</h3>
             </div>
             <div class="grid grid-cols-4 max-xl:grid-cols-2 max-md:grid-cols-1">
                 <div v-for="i in jobSpecialties" :key="i" class="mb-5">
@@ -208,7 +208,7 @@ const saveData = async () => {
         <div class="text-sm border-b pb-5 mb-5">
             <div class="grid text-start grid-cols-4 max-xl:grid-cols-2 max-md:grid-cols-1">
                 <div class="flex flex-col w-72 max-xl:mb-5 max-md:w-full">
-                    <label class="font-semibold mb-2">Display name *</label>
+                    <label class="font-semibold mb-2">Display name</label>
                     <input type="text" v-model="username" class="mb-2 outline-none border border-c-neutral-200 py-2 px-5 rounded-md focus:border-c-teal-main duration-200">
                     <p class="text-xs text-c-neutral-600">This is how others will see and address you. Once you choose a display name, it cannot be changed.</p>
                 </div>
