@@ -18,6 +18,9 @@ if(isCompleted.value == false){
 </script>
 
 <template>
+
+  <DesignerCompleteAccount v-if="completeAccount"/>
+
   <div class="flex h-screen">
     <header class="font-bold flex flex-col py-2 h-full border-r text-c-neutral-800">
       <div class="m-auto">
@@ -39,7 +42,6 @@ if(isCompleted.value == false){
 
       <div class="text-[10px] text-center grid grid-flow-rows">
         <div class="flex m-2 w-16 h-16 relative">
-          <div v-if="completeAccount" class="flex justify-center bg-c-error-dark absolute z-20 bottom-0 right-0 rounded-full text-c-neutral-0"><span class="material-symbols-outlined">exclamation</span></div>
           <NuxtLink to="/pro/account" exactActiveClass="url-link-style-selection" class="w-full p-2 action-effect m-auto"><span class="material-symbols-outlined">account_circle</span><p>account</p></NuxtLink>
         </div>
         <div class="flex m-2 w-16 h-16">

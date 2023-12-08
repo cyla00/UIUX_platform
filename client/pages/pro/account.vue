@@ -8,13 +8,6 @@ definePageMeta({
 const route = useRoute()
 const env = useRuntimeConfig().public
 
-const completeAccount = ref<boolean>(false) 
-const isCompleted = useCookie('isComplete')
-
-if(isCompleted.value == false){
-    completeAccount.value = true
-}
-
 const firstName = ref<string>()
 const lastName = ref<string>()
 const country = ref<string>()
@@ -30,10 +23,6 @@ const selectCountry = (event:string) => {
 
 <template>
     <main class="p-10 w-full overflow-y-scroll">
-        <div v-if="completeAccount" class="flex">
-            <p class="bg-c-orange m-auto py-1 px-5 rounded-full text-semibold text-c-neutral-0">Complete your information to get verified and access clients projects</p>
-        </div>
-
         <div class="border-b my-5">
             <h2 class="text-xl font-semibold my-5">Account</h2>
         </div>
